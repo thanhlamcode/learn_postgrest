@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:17
+    container_name: postgres_db
+    restart: unless-stopped # always restart
+    environment:
+      POSTGRES_USER: database
+      POSTGRES_PASSWORD: database
+      POSTGRES_DB: database
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  postgrest:
+    image: postgrest/postgrest:v12.0.2
+    container_name: postgrest_api
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      PGRST_DB_URI: postgres://authenticator:mysecretpassword@db:5432/database
+      PGRST_DB_SCHEMA: api
+      PGRST_DB_ANON_ROLE: web_anon
+      PGRST_SERVER_PORT: 3000
+
+volumes:
+  db_data:
