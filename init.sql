@@ -1,7 +1,7 @@
 -- Create schema API
 CREATE SCHEMA IF NOT EXISTS api;
 
--- Tạo bảng mẫu
+-- Create TABLE
 CREATE TABLE IF NOT EXISTS api.todos (
  id SERIAL PRIMARY KEY,
  done BOOLEAN NOT NULL DEFAULT FALSE,
