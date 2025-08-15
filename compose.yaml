@@ -27,6 +27,7 @@ services:
       PGRST_DB_ANON_ROLE: web_anon
       PGRST_SERVER_PORT: 3000
       PGRST_JWT_SECRET: "learning_postgrest_super_secret_key_123456"
+      PGRST_DB_PRE_REQUEST: "auth.check_token"
 
 volumes:
   db_data:
